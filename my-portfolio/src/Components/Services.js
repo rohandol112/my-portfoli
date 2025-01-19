@@ -1,27 +1,21 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Twitter, Linkedin, Instagram } from 'lucide-react';
+import { fadeInUp, staggerContainer } from '../utils/animations';
 
-const HappyClients = () => {
+const Services = () => {
     const testimonials = [
       {
         text: "Your design skills brought our vision to life, seamlessly blending aesthetics with functionality. The professionalism and dedication you exhibited throughout the project are truly appreciated. Looking forward to future collaborations with your exceptional talent!",
         type: "dark"
       },
       {
-        text: "Outstanding work on the UI/UX design! Your innovative approach and attention to detail created an exceptional user experience. The interface is both beautiful and functional.",
-        type: "dark"
-      },
-      {
-        text: "The design system you created has transformed our product. Your understanding of our needs and ability to translate them into a cohesive design was remarkable.",
+        text: "Your UI design work is exceptional—your creativity, attention to detail, and timely delivery exceeded expectations. The visually stunning and user-friendly interface you created will undoubtedly elevate the overall user experience. Thank you for your outstanding contribution to the project!",
         type: "light"
       },
       {
-        text: "Your UI design expertise has exceeded our expectations. The attention to detail and user-centric approach made all the difference.",
+        text: "Your design skills brought our vision to life, seamlessly blending aesthetics with functionality. The professionalism and dedication you exhibited throughout the project are truly appreciated. Looking forward to future collaborations with your exceptional talent!",
         type: "dark"
-      },
-      {
-        text: "Incredible work on the interface design. Your creative solutions have made our product stand out in the market.",
-        type: "light"
       }
     ];
   
@@ -40,36 +34,62 @@ const HappyClients = () => {
     };
   
     return (
-      <div className="py-16 px-8 bg-gradient-to-br from-purple-950 via-purple-900 to-purple-950">
-        <div className="max-w-6xl mx-auto">
+      <motion.div
+        variants={staggerContainer}
+        initial="initial"
+        animate="animate"
+        className="relative min-h-screen bg-gray-900 py-16 px-8"
+      >
+        {/* Background effects */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+          className="absolute left-20 top-20 w-[400px] h-[400px] bg-purple-600/20 rounded-full blur-[120px]" 
+        />
+        
+        <div className="absolute inset-0 bg-black/60" />
+
+        <div className="relative z-10 max-w-6xl mx-auto">
           {/* Header with Navigation */}
           <div className="flex items-center justify-between mb-16">
-            <button 
+            <motion.button 
+              variants={fadeInUp}
               className="text-4xl text-gray-400 hover:text-gray-300 transition-colors focus:outline-none" 
               onClick={showPrevious}
               aria-label="Previous testimonials"
             >
               &lt;
-            </button>
-            <h2 className="text-4xl font-bold text-white">Happy Clients</h2>
-            <button 
+            </motion.button>
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-4xl font-bold text-white"
+            >
+              Happy Clients
+            </motion.h2>
+            <motion.button 
+              variants={fadeInUp}
               className="text-4xl text-gray-400 hover:text-gray-300 transition-colors focus:outline-none" 
               onClick={showNext}
               aria-label="Next testimonials"
             >
               &gt;
-            </button>
+            </motion.button>
           </div>
-  
+
           {/* Testimonials Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+          <motion.div 
+            variants={fadeInUp}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24"
+          >
             {testimonials.slice(currentIndex, currentIndex + 3).map((testimonial, index) => (
-              <div 
+              <motion.div 
                 key={currentIndex + index}
+                variants={fadeInUp}
                 className={`${
                   testimonial.type === 'light' 
                     ? 'bg-white/10 backdrop-blur-sm' 
-                    : 'bg-purple-900/50 backdrop-blur-sm'
+                    : 'bg-gray-800/50 backdrop-blur-sm'
                 } rounded-2xl p-8 relative transition-all duration-300 shadow-xl`}
               >
                 <div className={`absolute -top-4 -left-2 text-6xl font-serif ${
@@ -77,7 +97,6 @@ const HappyClients = () => {
                 }`}>
                   "
                 </div>
-  
                 <div className="flex items-start gap-4 mt-4">
                   <div className={`w-12 h-12 ${
                     testimonial.type === 'light' ? 'bg-purple-300/20' : 'bg-purple-600/20'
@@ -86,31 +105,40 @@ const HappyClients = () => {
                     {testimonial.text}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-  
+          </motion.div>
+
           {/* Stats Section */}
-          <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-32 mb-12">
+          <motion.div 
+            variants={fadeInUp}
+            className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-32"
+          >
             <div className="text-center">
               <div className="text-3xl font-bold text-white mb-2">10+</div>
-              <div className="text-gray-300 bg-purple-900/30 backdrop-blur-sm px-6 py-2 rounded-full">Clients</div>
+              <div className="text-gray-300 bg-purple-900/30 backdrop-blur-sm px-6 py-2 rounded-full">
+                Clients
+              </div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-white mb-2">50+</div>
-              <div className="text-gray-300 bg-purple-900/30 backdrop-blur-sm px-6 py-2 rounded-full">Designs</div>
+              <div className="text-gray-300 bg-purple-900/30 backdrop-blur-sm px-6 py-2 rounded-full">
+                Designs
+              </div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-white mb-2">2yrs+</div>
-              <div className="text-gray-300 bg-purple-900/30 backdrop-blur-sm px-6 py-2 rounded-full">Experience</div>
+              <div className="text-gray-300 bg-purple-900/30 backdrop-blur-sm px-6 py-2 rounded-full">
+                Experience
+              </div>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     );
   };
   
-  export default HappyClients;
+  export default Services;
 
 const GetInTouch = () => {
   return (
@@ -170,4 +198,4 @@ const GetInTouch = () => {
   );
 };
 
-export { HappyClients, GetInTouch };
+export { Services, GetInTouch };

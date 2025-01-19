@@ -3,17 +3,18 @@ import Navbar from './Components/Navbar';
 import Hero from './Components/Hero';
 import Skills from './Components/Skills';
 import Projects from './Components/Projects';
-import { HappyClients, GetInTouch } from './Components/Services';
+import Services from './Components/Services';
+import Contact from './Components/Contact';
 
 const App = () => {
   return (
-    <div>
+    <div className="bg-gray-900">
       <Navbar />
       <Hero />
       <Skills />
       <Projects />
-      <HappyClients />
-      <GetInTouch />
+      <Services />
+      <Contact />
     </div>
   );
 };
