@@ -6,6 +6,7 @@ import { fadeInUp, staggerContainer } from '../utils/animations';
 const Contact = () => {
   return (
     <motion.div
+      id="contact"
       variants={staggerContainer}
       initial="initial"
       animate="animate"

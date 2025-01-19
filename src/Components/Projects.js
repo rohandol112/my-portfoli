@@ -49,6 +49,7 @@ const Projects = () => {
 
   return (
     <motion.div
+      id="projects"
       variants={staggerContainer}
       initial="initial"
       animate="animate"

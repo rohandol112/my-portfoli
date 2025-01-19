@@ -1,76 +1,8 @@
 import React from 'react';
-import { 
-  Box, 
-  Card, 
-  CardContent, 
-  Typography, 
-  Chip, 
-  Grid, 
-  styled 
-} from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { motion } from 'framer-motion';
+import { fadeInUp, staggerContainer } from '../utils/animations';
 
-const MotionCard = motion(Card);
-const MotionChip = motion(Chip);
-
-const StyledCard = styled(MotionCard)(({ theme }) => ({
-  background: 'rgba(15, 22, 36, 0.95)', // Adjusted for better contrast
-  borderRadius: 24,
-  height: '100%',
-  boxShadow: 'none',
-  backdropFilter: 'blur(10px)',
-  border: '1px solid rgba(255, 255, 255, 0.1)',
-}));
-
-const StyledChip = styled(MotionChip)(({ theme }) => ({
-  backgroundColor: '#2D1F3D', // Darker purple background
-  color: '#E9D5FF',
-  borderRadius: '9999px',
-  padding: '4px 12px',
-  border: 'none',
-  '&:hover': {
-    backgroundColor: '#3D2A52',
-  },
-}));
-
-const theme = createTheme({
-  palette: {
-    mode: 'dark',
-    background: {
-      default: '#0a0f1d',
-      paper: '#0f1624',
-    },
-  },
-  typography: {
-    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
-    h1: {
-      fontSize: '2.5rem',
-      fontWeight: 600,
-      color: '#A855F7',
-      marginBottom: '2rem',
-    },
-    h2: {
-      fontSize: '1.875rem',
-      fontWeight: 600,
-      color: '#fff',
-      marginBottom: '0.5rem',
-    },
-    subtitle1: {
-      color: '#94A3B8', // Adjusted for better visibility
-      fontSize: '0.875rem',
-      marginBottom: '1.5rem',
-    },
-    subtitle2: {
-      color: '#A855F7',
-      fontSize: '0.875rem',
-      marginBottom: '0.75rem',
-      fontWeight: 500,
-    },
-  },
-});
-
-const SkillsSection = () => {
+const Skills = () => {
   const skillCategories = [
     {
       title: "Web Development",
@@ -78,111 +10,123 @@ const SkillsSection = () => {
       skills: [
         {
           subCategory: "Frontend",
-          items: ["HTML", "CSS", "JavaScript", "React.JS"]
+          items: ["HTML", "CSS", "JavaScript", "React.JS", "Next.js", "Tailwind CSS"]
         },
         {
           subCategory: "Backend",
-          items: ["Node.JS", "Flask", "MongoDB"]
+          items: ["Node.JS", "Express.js", "MongoDB", "Firebase"]
         }
       ]
     },
     {
       title: "Programming",
-      subtitle: "Core Languages",
+      subtitle: "Core Languages & Tools",
       skills: [
         {
           subCategory: "Languages",
-          items: ["Python", "C++", "C"]
+          items: ["Python", "C++", "Java", "TypeScript"]
+        },
+        {
+          subCategory: "Tools",
+          items: ["Git", "GitHub", "VS Code", "Postman"]
         }
       ]
     },
     {
-      title: "Software Tools",
-      subtitle: "Design & Development Tools",
+      title: "Design",
+      subtitle: "UI/UX & Design Tools",
       skills: [
         {
-          subCategory: "Design",
-          items: ["Adobe Illustrator", "Adobe Photoshop", "Adobe XD", "Figma", "Sketch"]
+          subCategory: "Design Tools",
+          items: ["Figma", "Adobe XD", "Adobe Photoshop", "Adobe Illustrator"]
+        },
+        {
+          subCategory: "Concepts",
+          items: ["UI Design", "UX Design", "Wireframing", "Prototyping"]
         }
       ]
     }
   ];
 
   return (
-    <ThemeProvider theme={theme}>
-      <Box 
-        sx={{ 
-          py: 8,
-          px: 4,
-          minHeight: '100vh',
-          background: 'linear-gradient(to bottom, #0a0f1d, #0f1624)',
-          backgroundAttachment: 'fixed',
-        }}
-      >
-        <Box sx={{ maxWidth: '1200px', mx: 'auto' }}>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-          >
-            <Typography variant="h1">
-              Skills & Expertise
-            </Typography>
-          </motion.div>
+    <motion.div
+      id="skills"
+      variants={staggerContainer}
+      initial="initial"
+      animate="animate"
+      className="relative min-h-screen bg-gray-900 text-white overflow-hidden"
+    >
+      {/* Background effects */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="absolute left-20 top-20 w-[400px] h-[400px] bg-purple-600/20 rounded-full blur-[120px]" 
+      />
+      
+      <div className="absolute inset-0 bg-black/60" />
 
-          <Grid container spacing={3}>
-            {skillCategories.map((category, index) => (
-              <Grid item xs={12} md={4} key={index}>
-                <StyledCard
-                  component={motion.div}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                >
-                  <CardContent sx={{ p: 4 }}>
-                    <Typography variant="h2">
-                      {category.title}
-                    </Typography>
-                    
-                    <Typography variant="subtitle1">
-                      {category.subtitle}
-                    </Typography>
+      <div className="relative z-10 max-w-7xl mx-auto">
+        {/* Header Section */}
+        <motion.div 
+          variants={fadeInUp}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl font-bold text-white mb-4">
+            My Professional
+          </h2>
+          <h2 className="text-4xl font-bold text-yellow-400">
+            Skillset
+          </h2>
+        </motion.div>
 
-                    {category.skills.map((skillGroup, groupIndex) => (
-                      <Box key={groupIndex} sx={{ mb: 3 }}>
-                        <Typography variant="subtitle2">
-                          {skillGroup.subCategory}
-                        </Typography>
-                        <Box sx={{ 
-                          display: 'flex', 
-                          flexWrap: 'wrap', 
-                          gap: 1
-                        }}>
-                          {skillGroup.items.map((skill, skillIndex) => (
-                            <StyledChip
-                              key={skillIndex}
-                              label={skill}
-                              component={motion.div}
-                              initial={{ opacity: 0, scale: 0.9 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              transition={{ 
-                                duration: 0.2,
-                                delay: (index * 0.1) + (skillIndex * 0.05)
-                              }}
-                            />
-                          ))}
-                        </Box>
-                      </Box>
+        {/* Skills Grid */}
+        <motion.div 
+          variants={fadeInUp}
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+        >
+          {skillCategories.map((category, index) => (
+            <motion.div
+              key={index}
+              variants={fadeInUp}
+              className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 hover:bg-gray-800/70 transition-colors"
+            >
+              <h3 className="text-2xl font-bold text-white mb-2">
+                {category.title}
+              </h3>
+              <p className="text-gray-400 mb-6">
+                {category.subtitle}
+              </p>
+
+              {category.skills.map((skillGroup, groupIndex) => (
+                <div key={groupIndex} className="mb-6 last:mb-0">
+                  <h4 className="text-lg font-semibold text-yellow-400 mb-3">
+                    {skillGroup.subCategory}
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {skillGroup.items.map((skill, skillIndex) => (
+                      <motion.span
+                        key={skillIndex}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ 
+                          duration: 0.2,
+                          delay: (index * 0.1) + (skillIndex * 0.05)
+                        }}
+                        className="px-4 py-2 bg-purple-900/30 text-purple-200 rounded-full text-sm hover:bg-purple-900/50 transition-colors"
+                      >
+                        {skill}
+                      </motion.span>
                     ))}
-                  </CardContent>
-                </StyledCard>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-      </Box>
-    </ThemeProvider>
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </motion.div>
   );
 };
 
-export default SkillsSection;
+export default Skills;
