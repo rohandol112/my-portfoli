@@ -69,7 +69,7 @@ const Footer = () => {
           className="border-t border-gray-800 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center"
         >
           <p className="text-gray-400 text-xs sm:text-sm">
-            © 2025 Rohan Dol. All rights reserved. Built with React & TailwindCSS
+            © 2025 Rohan Dol. 
           </p>
         </motion.div>
       </div>

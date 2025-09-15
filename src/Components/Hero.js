@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import heroImage from '../assets/rohan.jpg'; // Ensure this path is correct
+import heroImage from '../assets/rohan.png'; // Ensure this path is correct
 import { fadeInUp, staggerContainer } from "../utils/animations";
 
 const Hero = () => {
