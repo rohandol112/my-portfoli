@@ -46,7 +46,7 @@ const Services = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
-          className="absolute left-20 top-20 w-[400px] h-[400px] bg-purple-600/20 rounded-full blur-[120px]" 
+          className="absolute left-5 sm:left-10 lg:left-20 top-20 w-[200px] sm:w-[300px] lg:w-[400px] h-[200px] sm:h-[300px] lg:h-[400px] bg-purple-600/20 rounded-full blur-[80px] sm:blur-[120px] -z-10" 
         />
         
         <div className="absolute inset-0 bg-black/60" />
