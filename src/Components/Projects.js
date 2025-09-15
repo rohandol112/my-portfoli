@@ -8,12 +8,12 @@ const Projects = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedProject, setSelectedProject] = useState(null);
 
-  const filters = ['All', 'SaaS', 'Blockchain', 'Mobile App', 'Analytics'];
+  const filters = ['All', 'AI/ML', 'Blockchain', 'Mobile App', 'Analytics'];
   
   const projects = [
     {
       title: "DocuMindAI - Document Processing SaaS",
-      category: "SaaS",
+      category: "AI/ML",
       description: "Full-stack SaaS platform for intelligent document processing with OCR, AI-powered Q&A, and semantic search. Features dashboard analytics with real-time processing metrics.",
       techStack: ["Next.js 15", "FastAPI", "MongoDB", "Pinecone", "LangChain", "Gemini API"],
       image: "/images/projects/documind-dashboard.png",
@@ -176,7 +176,7 @@ const Projects = () => {
                     onError={(e) => {
                       // Use a more reliable placeholder service
                       const colors = {
-                        'SaaS': '6366f1',
+                        'AI/ML': '6366f1',
                         'Blockchain': '8b5cf6',
                         'Analytics': '06b6d4',
                         'Mobile App': '10b981'
@@ -316,7 +316,7 @@ const Projects = () => {
                     onError={(e) => {
                       // Use a more reliable placeholder service
                       const colors = {
-                        'SaaS': '6366f1',
+                        'AI/ML': '6366f1',
                         'Blockchain': '8b5cf6',
                         'Analytics': '06b6d4',
                         'Mobile App': '10b981'
