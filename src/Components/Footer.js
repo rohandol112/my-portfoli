@@ -37,7 +37,7 @@ const Footer = () => {
               <h4 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Connect</h4>
               <div className="space-y-1 sm:space-y-2">
                 <a 
-                  href="https://linkedin.com/in/rohan-dol" 
+                  href="https://www.linkedin.com/in/rohan-dol-44b62a214/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="block text-gray-400 hover:text-yellow-400 transition-colors text-sm sm:text-base"

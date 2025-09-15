@@ -68,7 +68,7 @@ const Hero = () => {
               <motion.a 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                href="https://linkedin.com/in/rohan-dol" 
+                href="https://www.linkedin.com/in/rohan-dol-44b62a214/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-lg font-medium transition-all duration-200 text-center shadow-lg text-sm sm:text-base"
