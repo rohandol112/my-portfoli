@@ -1,75 +1,46 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeInUp, staggerContainer } from '../utils/animations';
+import { useTheme } from '../context/ThemeContext';
 
 const Skills = () => {
+  const { isDark } = useTheme();
   const skillCategories = [
     {
       title: "Programming Languages",
-      subtitle: "Core Development Languages",
       skills: [
-        {
-          subCategory: "Languages",
-          items: ["C++", "Python", "JavaScript", "TypeScript"]
-        }
+        { name: "Java", icon: "https://skillicons.dev/icons?i=java" },
+        { name: "Python", icon: "https://skillicons.dev/icons?i=python" },
+        { name: "JavaScript", icon: "https://skillicons.dev/icons?i=javascript" },
+        { name: "TypeScript", icon: "https://skillicons.dev/icons?i=typescript" },
+        { name: "C++", icon: "https://skillicons.dev/icons?i=cpp" },
+        { name: "SQL", icon: "https://skillicons.dev/icons?i=mysql" }
       ]
     },
     {
-      title: "Web/Mobile Technologies",
-      subtitle: "Frontend & Backend Development",
+      title: "Technical",
       skills: [
-        {
-          subCategory: "Frontend",
-          items: ["React.js", "Next.js", "React Native", "TailwindCSS"]
-        },
-        {
-          subCategory: "Backend",
-          items: ["Node.js", "Express.js", "REST APIs", "FastAPI"]
-        }
+        { name: "React", icon: "https://skillicons.dev/icons?i=react" },
+        { name: "Next.js", icon: "https://skillicons.dev/icons?i=nextjs" },
+        { name: "Node.js", icon: "https://skillicons.dev/icons?i=nodejs" },
+        { name: "Express.js", icon: "https://skillicons.dev/icons?i=express" },
+        { name: "MongoDB", icon: "https://skillicons.dev/icons?i=mongodb" },
+        { name: "Redis", icon: "https://skillicons.dev/icons?i=redis" },
+        { name: "Firebase", icon: "https://skillicons.dev/icons?i=firebase" },
+        { name: "Tailwind CSS", icon: "https://skillicons.dev/icons?i=tailwind" },
+        { name: "Docker", icon: "https://skillicons.dev/icons?i=docker" },
+        { name: "FastAPI", icon: "https://skillicons.dev/icons?i=fastapi" }
       ]
     },
     {
-      title: "Databases & Cloud",
-      subtitle: "Data Storage & Cloud Services",
+      title: "Tools",
       skills: [
-        {
-          subCategory: "Databases",
-          items: ["MongoDB", "Pinecone Vector DB", "Firebase", "IPFS"]
-        }
-      ]
-    },
-    {
-      title: "AI/ML & Tools",
-      subtitle: "Machine Learning & Development Tools",
-      skills: [
-        {
-          subCategory: "AI/ML",
-          items: ["LangChain", "Pandas", "NumPy", "OpenCV"]
-        },
-        {
-          subCategory: "Tools",
-          items: ["Docker", "Git", "Selenium", "FastAPI"]
-        }
-      ]
-    },
-    {
-      title: "Blockchain",
-      subtitle: "Web3 & Smart Contracts",
-      skills: [
-        {
-          subCategory: "Blockchain",
-          items: ["Aptos Move Smart Contracts", "Web3.js"]
-        }
-      ]
-    },
-    {
-      title: "Core Computer Science",
-      subtitle: "Fundamentals & Problem Solving",
-      skills: [
-        {
-          subCategory: "Concepts",
-          items: ["Data Structures & Algorithms", "OOP", "DBMS", "Operating Systems", "Computer Networks"]
-        }
+        { name: "Postman", icon: "https://skillicons.dev/icons?i=postman" },
+        { name: "Git", icon: "https://skillicons.dev/icons?i=git" },
+        { name: "GitHub", icon: "https://skillicons.dev/icons?i=github" },
+        { name: "VS Code", icon: "https://skillicons.dev/icons?i=vscode" },
+        { name: "Vercel", icon: "https://skillicons.dev/icons?i=vercel" },
+        { name: "Figma", icon: "https://skillicons.dev/icons?i=figma" }
       ]
     }
   ];
@@ -80,77 +51,73 @@ const Skills = () => {
       variants={staggerContainer}
       initial="initial"
       animate="animate"
-      className="relative min-h-screen bg-gray-900 text-white overflow-hidden w-full"
+      className={`relative min-h-screen overflow-hidden w-full transition-colors duration-300 ${
+        isDark ? 'bg-[#0a0a0a]' : 'bg-white'
+      }`}
     >
-      {/* Background effects */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="absolute left-5 sm:left-10 lg:left-20 top-20 w-[200px] sm:w-[300px] lg:w-[400px] h-[200px] sm:h-[300px] lg:h-[400px] bg-purple-600/20 rounded-full blur-[80px] sm:blur-[120px]" 
-      />
-      
-      <div className="absolute inset-0 bg-black/60" />
-
       <div className="relative z-10 py-16 sm:py-20 lg:py-24">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="px-6 sm:px-8 lg:px-12 max-w-6xl mx-auto">
           {/* Header Section */}
           <motion.div 
             variants={fadeInUp}
-            className="text-center mb-12 sm:mb-16"
+            className="mb-12 sm:mb-16"
           >
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-2 sm:mb-4">
-              My Professional
+            <h2 className={`text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 ${
+              isDark ? 'text-[#ccd6f6]' : 'text-slate-900'
+            }`}>
+              <span className="text-[#64ffda] font-mono text-xl sm:text-2xl">02.</span> Skills
             </h2>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-yellow-400">
-              Skillset
-            </h2>
+            <div className="w-16 h-1 bg-[#64ffda] mt-4"></div>
           </motion.div>
 
-          {/* Skills Grid */}
-          <motion.div 
-            variants={fadeInUp}
-            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
-          >
-            {skillCategories.map((category, index) => (
+          {/* Skills Categories */}
+          <div className="space-y-12 sm:space-y-16 lg:space-y-20">
+            {skillCategories.map((category, categoryIndex) => (
               <motion.div
-                key={index}
+                key={categoryIndex}
                 variants={fadeInUp}
-                className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-4 sm:p-6 lg:p-8 hover:scale-105 transition-transform duration-300"
+                className="space-y-6 sm:space-y-8"
               >
-                <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold text-white mb-1 sm:mb-2">
+                {/* Category Title */}
+                <h3 className={`text-lg sm:text-xl lg:text-2xl font-semibold text-center ${
+                  isDark ? 'text-[#ccd6f6]' : 'text-slate-900'
+                }`}>
                   {category.title}
                 </h3>
-                <p className="text-gray-400 mb-4 sm:mb-6 text-xs sm:text-sm lg:text-base">
-                  {category.subtitle}
-                </p>
 
-                {category.skills.map((skillGroup, groupIndex) => (
-                  <div key={groupIndex} className="mb-4 sm:mb-6 last:mb-0">
-                    <h4 className="text-base sm:text-lg font-semibold text-yellow-400 mb-2 sm:mb-3">
-                      {skillGroup.subCategory}
-                    </h4>
-                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                      {skillGroup.items.map((skill, skillIndex) => (
-                        <motion.span
-                          key={skillIndex}
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ 
-                            duration: 0.2,
-                            delay: (index * 0.1) + (skillIndex * 0.05)
-                          }}
-                          className="px-2 sm:px-3 py-1 sm:py-2 bg-purple-900/30 text-purple-200 rounded-full text-xs sm:text-sm hover:bg-purple-900/50 transition-colors cursor-default"
-                        >
-                          {skill}
-                        </motion.span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+                {/* Skills Grid */}
+                <div className="flex flex-wrap justify-center gap-8 sm:gap-10 lg:gap-12">
+                  {category.skills.map((skill, skillIndex) => (
+                    <motion.div
+                      key={skillIndex}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ 
+                        duration: 0.4,
+                        delay: skillIndex * 0.05
+                      }}
+                      className="flex flex-col items-center gap-2 sm:gap-3 group cursor-pointer"
+                    >
+                      {/* Icon */}
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-lg overflow-hidden group-hover:scale-110 transition-transform duration-300">
+                        <img 
+                          src={skill.icon} 
+                          alt={skill.name}
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                      
+                      {/* Skill Name */}
+                      <span className="text-xs sm:text-sm text-[#8892b0] text-center font-medium group-hover:text-[#64ffda] transition-colors whitespace-nowrap">
+                        {skill.name}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </motion.div>

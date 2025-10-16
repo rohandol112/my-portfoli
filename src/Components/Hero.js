@@ -1,374 +1,172 @@
-import React, { useState, useEffect } from "react";
-import { motion, useAnimation } from "framer-motion";
-import heroImage from '../assets/rohan.png'; // Ensure this path is correct
-import { fadeInUp, staggerContainer } from "../utils/animations";
+import React from "react";
+import { motion } from "framer-motion";
+import heroImage from '../assets/rohan.png';
+import { useTheme } from "../context/ThemeContext";
 
 const Hero = () => {
-  const [text, setText] = useState("");
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const controls = useAnimation();
+  const { isDark } = useTheme();
   
-  const titles = [
-    "Machine Learning Intern",
-    "Full Stack Developer", 
-    "UX Designer"
-  ];
-
-  // Typing animation effect
-  useEffect(() => {
-    const currentTitle = titles[currentIndex];
-    let i = 0;
-    const timer = setInterval(() => {
-      setText(currentTitle.slice(0, i));
-      i++;
-      if (i > currentTitle.length) {
-        setTimeout(() => {
-          const nextIndex = (currentIndex + 1) % titles.length;
-          setCurrentIndex(nextIndex);
-          setText("");
-        }, 2000);
-        clearInterval(timer);
-      }
-    }, 100);
-
-    return () => clearInterval(timer);
-  }, [currentIndex]);
-
-  // Floating animation variants
-  const floatingVariants = {
-    animate: {
-      y: [-10, 10, -10],
-      rotate: [0, 5, -5, 0],
-      transition: {
-        duration: 6,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
-  };
-
-  const glowVariants = {
-    animate: {
-      boxShadow: [
-        "0 0 20px rgba(147, 51, 234, 0.3)",
-        "0 0 40px rgba(147, 51, 234, 0.6)",
-        "0 0 20px rgba(147, 51, 234, 0.3)"
-      ],
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
-  };
-
   return (
     <motion.div 
       id="home"
-      variants={staggerContainer}
-      initial="initial"
-      animate="animate"
-      className="relative min-h-screen bg-gray-900 text-white overflow-hidden w-full"
+      className={`relative min-h-screen overflow-hidden w-full transition-colors duration-300 ${
+        isDark ? 'bg-[#0a0a0a] text-white' : 'bg-white text-gray-900'
+      }`}
     >
-      {/* Animated Background Elements */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="absolute left-5 sm:left-10 lg:left-20 top-20 w-[200px] sm:w-[300px] lg:w-[400px] h-[200px] sm:h-[300px] lg:h-[400px] bg-purple-600/20 rounded-full blur-[80px] sm:blur-[120px] -z-10" 
-      />
+      {/* Subtle gradient background */}
+      <div className={`absolute inset-0 ${
+        isDark 
+          ? 'bg-gradient-to-b from-[#0a0a0a] via-[#111111] to-[#0a0a0a]' 
+          : 'bg-gradient-to-b from-slate-50 via-white to-slate-50'
+      }`} />
       
-      {/* Floating Particles */}
-      {[...Array(6)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-2 h-2 bg-purple-400 rounded-full opacity-60"
-          initial={{ 
-            x: Math.random() * window.innerWidth, 
-            y: Math.random() * window.innerHeight 
-          }}
-          animate={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-            scale: [1, 1.5, 1],
-            opacity: [0.6, 1, 0.6]
-          }}
-          transition={{
-            duration: 10 + Math.random() * 10,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-      ))}
-      
-      {/* Geometric Shapes */}
-      <motion.div
-        className="absolute top-1/4 right-1/4 w-16 h-16 border-2 border-pink-500/30"
-        variants={floatingVariants}
-        animate="animate"
-      />
-      <motion.div
-        className="absolute bottom-1/3 left-1/3 w-8 h-8 bg-yellow-400/20 rounded-full"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.2, 0.5, 0.2]
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      
-      {/* Dark overlay for contrast */}
-      <div className="absolute inset-0 bg-black/60" />
-
       {/* Main content */}
-      <div className="relative z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-24 sm:pt-32 pb-16 lg:pt-40">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
+      <div className="relative z-10 px-6 sm:px-8 lg:px-12 max-w-6xl mx-auto pt-32 sm:pt-40 pb-20">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-20">
+          
           {/* Left content */}
           <motion.div 
-            variants={fadeInUp}
-            className="space-y-4 sm:space-y-6 text-center lg:text-left"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="flex-1 text-center lg:text-left"
           >
-            <motion.h1 
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight"
-            >
-              <motion.span 
-                className="text-purple-400"
-                animate={{
-                  textShadow: [
-                    "0 0 10px rgba(147, 51, 234, 0.5)",
-                    "0 0 20px rgba(147, 51, 234, 0.8)",
-                    "0 0 10px rgba(147, 51, 234, 0.5)"
-                  ]
-                }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                Rohan
-              </motion.span>{" "}
-              <motion.span 
-                className="text-pink-500"
-                animate={{
-                  textShadow: [
-                    "0 0 10px rgba(236, 72, 153, 0.5)",
-                    "0 0 20px rgba(236, 72, 153, 0.8)",
-                    "0 0 10px rgba(236, 72, 153, 0.5)"
-                  ]
-                }}
-                transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-              >
-                Dol
-              </motion.span>
-            </motion.h1>
-            
-            <motion.h2 
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-light text-gray-300 leading-relaxed px-2 sm:px-0 min-h-[2.5rem]"
-            >
-              <span className="text-yellow-400">{text}</span>
-              <motion.span
-                animate={{ opacity: [1, 0, 1] }}
-                transition={{ duration: 1, repeat: Infinity }}
-                className="text-yellow-400"
-              >
-                |
-              </motion.span>
-            </motion.h2>
-            
+            {/* Greeting */}
             <motion.p 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed px-2 sm:px-0"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="text-[#64ffda] font-mono text-sm sm:text-base mb-4"
             >
-              Bachelor of Engineering (Electronics & Computer Science) at TCET Mumbai. Experienced in ML, full-stack web/mobile, and blockchain. 4★ CodeChef, Codeforces Pupil. Passionate about building scalable products and seamless user experiences.
+              Hey, I'm
             </motion.p>
             
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
+            {/* Name */}
+            <motion.h1 
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 sm:pt-6 justify-center lg:justify-start px-2 sm:px-0"
+              transition={{ delay: 0.3 }}
+              className={`text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 leading-tight ${
+                isDark ? 'text-[#ccd6f6]' : 'text-slate-900'
+              }`}
             >
-              <motion.a 
-                whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: "0 10px 25px rgba(147, 51, 234, 0.4)",
-                  y: -2
-                }}
-                whileTap={{ scale: 0.95 }}
-                animate={{
-                  boxShadow: [
-                    "0 4px 15px rgba(147, 51, 234, 0.2)",
-                    "0 6px 20px rgba(147, 51, 234, 0.4)",
-                    "0 4px 15px rgba(147, 51, 234, 0.2)"
-                  ]
-                }}
-                transition={{ duration: 2, repeat: Infinity }}
-                href="mailto:rohan45321dol@gmail.com" 
-                className="px-6 sm:px-8 py-3 sm:py-4 bg-purple-600 hover:bg-purple-700 rounded-lg font-medium transition-all duration-200 text-center shadow-lg text-sm sm:text-base relative overflow-hidden"
+              Rohan Dol
+            </motion.h1>
+            
+            {/* Role */}
+            <motion.h2 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className={`text-2xl sm:text-3xl lg:text-4xl font-semibold mb-6 ${
+                isDark ? 'text-[#8892b0]' : 'text-slate-600'
+              }`}
+            >
+              Machine Learning Intern
+            </motion.h2>
+            
+            {/* Description */}
+            <motion.p 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className={`text-base sm:text-lg max-w-xl leading-relaxed mb-8 mx-auto lg:mx-0 ${
+                isDark ? 'text-[#8892b0]' : 'text-slate-700'
+              }`}
+            >
+              Final year  Engineering student from Mumbai, India 🇮🇳. 
+              Passionate about building intelligent systems, scalable web applications, 
+              and creating seamless user experiences.
+            </motion.p>
+            
+            {/* CTA Buttons */}
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+            >
+              <a
+                href="mailto:rohan45321dol@gmail.com"
+                className="px-6 py-3 border border-[#64ffda] text-[#64ffda] rounded-md font-mono text-sm hover:bg-[#64ffda]/10 transition-all duration-200"
               >
-                <motion.div
-                  className="absolute inset-0 bg-white opacity-0"
-                  whileHover={{ opacity: 0.1 }}
-                  transition={{ duration: 0.3 }}
-                />
-                Hire Me
-              </motion.a>
-              <motion.a 
-                whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: "0 10px 25px rgba(236, 72, 153, 0.4)",
-                  y: -2
-                }}
-                whileTap={{ scale: 0.95 }}
-                href="https://www.linkedin.com/in/rohan-dol-44b62a214/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-lg font-medium transition-all duration-200 text-center shadow-lg text-sm sm:text-base relative overflow-hidden"
+                Get In Touch
+              </a>
+              <a
+                href="#projects"
+                className="px-6 py-3 bg-[#64ffda]/10 text-[#64ffda] rounded-md font-mono text-sm hover:bg-[#64ffda]/20 transition-all duration-200"
               >
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-500 opacity-0"
-                  whileHover={{ opacity: 0.3 }}
-                  transition={{ duration: 0.3 }}
-                />
-                LinkedIn
-              </motion.a>
-              <motion.a 
-                whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: "0 10px 25px rgba(75, 85, 99, 0.4)",
-                  y: -2
-                }}
-                whileTap={{ scale: 0.95 }}
+                View Projects
+              </a>
+            </motion.div>
+
+            {/* Social Links */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7 }}
+              className="flex gap-6 mt-8 justify-center lg:justify-start"
+            >
+              <a 
                 href="https://github.com/rohandol112" 
                 target="_blank" 
-                rel="noopener noreferrer" 
-                className="px-6 sm:px-8 py-3 sm:py-4 bg-gray-800 hover:bg-gray-700 rounded-lg font-medium transition-all duration-200 text-center shadow-lg text-sm sm:text-base relative overflow-hidden"
+                rel="noopener noreferrer"
+                className={`hover:text-[#64ffda] transition-colors ${
+                  isDark ? 'text-[#8892b0]' : 'text-slate-600'
+                }`}
               >
-                <motion.div
-                  className="absolute inset-0 bg-white opacity-0"
-                  whileHover={{ opacity: 0.1 }}
-                  transition={{ duration: 0.3 }}
-                />
-                GitHub
-              </motion.a>
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+              </a>
+              <a 
+                href="https://www.linkedin.com/in/rohan-dol-44b62a214/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={`hover:text-[#64ffda] transition-colors ${
+                  isDark ? 'text-[#8892b0]' : 'text-slate-600'
+                }`}
+              >
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+              <a 
+                href="mailto:rohan45321dol@gmail.com"
+                className={`hover:text-[#64ffda] transition-colors ${
+                  isDark ? 'text-[#8892b0]' : 'text-slate-600'
+                }`}
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </a>
             </motion.div>
           </motion.div>
 
           {/* Right content - Profile image */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 1, delay: 0.5, type: "spring", stiffness: 100 }}
-            className="relative group flex justify-center lg:justify-end mt-8 lg:mt-0"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="relative group"
           >
-            {/* Animated Gradient Ring */}
-            <motion.div 
-              className="absolute -inset-4 rounded-full opacity-75 blur-xl"
-              animate={{
-                background: [
-                  "linear-gradient(45deg, #8b5cf6, #ec4899)",
-                  "linear-gradient(45deg, #ec4899, #f59e0b)",
-                  "linear-gradient(45deg, #f59e0b, #8b5cf6)",
-                  "linear-gradient(45deg, #8b5cf6, #ec4899)"
-                ]
-              }}
-              transition={{ duration: 4, repeat: Infinity }}
-            />
-            
-            {/* Floating Ring */}
-            <motion.div
-              className="absolute -inset-2 border-2 border-purple-400/30 rounded-full"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            />
-            
-            {/* Image container */}
-            <motion.div 
-              className="relative bg-gradient-to-r from-purple-900 to-pink-900 p-1 rounded-3xl"
-              variants={glowVariants}
-              animate="animate"
-              whileHover={{
-                scale: 1.05,
-                rotate: [0, -1, 1, 0],
-                transition: { duration: 0.3 }
-              }}
-            >
-              <motion.img
-                src={heroImage}
-                alt="Rohan Dol Profile"
-                className="w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] md:w-[350px] md:h-[350px] lg:w-[400px] lg:h-[400px] object-cover rounded-2xl"
-                whileHover={{
-                  filter: "brightness(1.1) contrast(1.1)"
-                }}
-                transition={{ duration: 0.3 }}
-              />
+            <div className="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px]">
+              {/* Border effect */}
+              <div className="absolute inset-0 border-2 border-[#64ffda] rounded-lg translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-300" />
               
-              {/* Sparkle Effects */}
-              {[...Array(4)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-2 h-2 bg-yellow-400 rounded-full"
-                  style={{
-                    top: `${20 + i * 20}%`,
-                    right: `${10 + i * 15}%`
-                  }}
-                  animate={{
-                    scale: [0, 1, 0],
-                    opacity: [0, 1, 0],
-                    rotate: [0, 180, 360]
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: i * 0.5,
-                    ease: "easeInOut"
-                  }}
+              {/* Image container */}
+              <div className="relative w-full h-full overflow-hidden rounded-lg">
+                <div className="absolute inset-0 bg-[#64ffda] mix-blend-multiply group-hover:bg-transparent transition-all duration-300" />
+                <img
+                  src={heroImage}
+                  alt="Rohan Dol"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
                 />
-              ))}
-            </motion.div>
-            
-            {/* Floating Code Symbols */}
-            <motion.div
-              className="absolute -top-4 -left-4 text-2xl"
-              animate={{
-                y: [-5, 5, -5],
-                rotate: [0, 10, -10, 0],
-                opacity: [0.5, 1, 0.5]
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              💻
-            </motion.div>
-            
-            <motion.div
-              className="absolute -bottom-4 -right-4 text-2xl"
-              animate={{
-                y: [5, -5, 5],
-                rotate: [0, -10, 10, 0],
-                opacity: [0.5, 1, 0.5]
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 2
-              }}
-            >
-              🚀
-            </motion.div>
+              </div>
+            </div>
           </motion.div>
+
         </div>
       </div>
     </motion.div>

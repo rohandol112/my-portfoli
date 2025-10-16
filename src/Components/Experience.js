@@ -1,8 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeInUp, staggerContainer } from '../utils/animations';
+import { useTheme } from '../context/ThemeContext';
 
 const Experience = () => {
+  const { isDark } = useTheme();
   const experiences = [
     {
       title: "Machine Learning Intern",
@@ -45,31 +47,23 @@ const Experience = () => {
       variants={staggerContainer}
       initial="initial"
       animate="animate"
-      className="relative min-h-screen bg-gray-900 text-white overflow-hidden w-full py-16"
+      className={`relative min-h-screen overflow-hidden w-full py-16 transition-colors duration-300 ${
+        isDark ? 'bg-[#0a0a0a] text-white' : 'bg-white text-gray-900'
+      }`}
     >
-      {/* Background effects */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="absolute right-5 sm:right-10 lg:right-20 top-20 w-[200px] sm:w-[300px] lg:w-[400px] h-[200px] sm:h-[300px] lg:h-[400px] bg-purple-600/20 rounded-full blur-[80px] sm:blur-[120px]" 
-      />
-      
-      <div className="absolute inset-0 bg-black/60" />
-
       <div className="relative z-10 py-16 sm:py-20 lg:py-24">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="px-6 sm:px-8 lg:px-12 max-w-6xl mx-auto">
           {/* Header Section */}
           <motion.div 
             variants={fadeInUp}
-            className="text-center mb-12 sm:mb-16"
+            className="mb-12 sm:mb-16"
           >
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-2 sm:mb-4">
-              My Professional
+            <h2 className={`text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 ${
+              isDark ? 'text-[#ccd6f6]' : 'text-slate-900'
+            }`}>
+              <span className="text-[#64ffda] font-mono text-xl sm:text-2xl">04.</span> Experience
             </h2>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-yellow-400">
-              Experience
-            </h2>
+            <div className="w-16 h-1 bg-[#64ffda] mt-4"></div>
           </motion.div>
 
           {/* Experience Timeline */}

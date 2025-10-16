@@ -39,43 +39,18 @@ const Services = () => {
         variants={staggerContainer}
         initial="initial"
         animate="animate"
-        className="relative min-h-screen bg-gray-900 py-16 px-8"
+        className="relative min-h-screen bg-[#0a0a0a] py-16 px-4 sm:px-6 lg:px-8"
       >
-        {/* Background effects */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="absolute left-5 sm:left-10 lg:left-20 top-20 w-[200px] sm:w-[300px] lg:w-[400px] h-[200px] sm:h-[300px] lg:h-[400px] bg-purple-600/20 rounded-full blur-[80px] sm:blur-[120px] -z-10" 
-        />
-        
-        <div className="absolute inset-0 bg-black/60" />
-
         <div className="relative z-10 max-w-6xl mx-auto">
           {/* Header with Navigation */}
-          <div className="flex items-center justify-between mb-16">
-            <motion.button 
-              variants={fadeInUp}
-              className="text-4xl text-gray-400 hover:text-gray-300 transition-colors focus:outline-none" 
-              onClick={showPrevious}
-              aria-label="Previous testimonials"
-            >
-              &lt;
-            </motion.button>
+          <div className="mb-12 sm:mb-16">
             <motion.h2 
               variants={fadeInUp}
-              className="text-4xl font-bold text-white"
+              className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#ccd6f6] mb-2"
             >
-              Happy Clients
+              <span className="text-[#64ffda] font-mono text-xl sm:text-2xl">05.</span> Testimonials
             </motion.h2>
-            <motion.button 
-              variants={fadeInUp}
-              className="text-4xl text-gray-400 hover:text-gray-300 transition-colors focus:outline-none" 
-              onClick={showNext}
-              aria-label="Next testimonials"
-            >
-              &gt;
-            </motion.button>
+            <div className="w-16 h-1 bg-[#64ffda] mt-4"></div>
           </div>
 
           {/* Testimonials Grid */}
@@ -87,22 +62,14 @@ const Services = () => {
               <motion.div 
                 key={currentIndex + index}
                 variants={fadeInUp}
-                className={`${
-                  testimonial.type === 'light' 
-                    ? 'bg-white/10 backdrop-blur-sm' 
-                    : 'bg-gray-800/50 backdrop-blur-sm'
-                } rounded-2xl p-8 relative transition-all duration-300 shadow-xl`}
+                className="bg-[#112240] border border-[#8892b0]/10 rounded-lg p-6 sm:p-8 relative transition-all duration-300"
               >
-                <div className={`absolute -top-4 -left-2 text-6xl font-serif ${
-                  testimonial.type === 'light' ? 'text-purple-300/20' : 'text-purple-600/20'
-                }`}>
+                <div className="absolute -top-4 -left-2 text-6xl font-serif text-[#64ffda]/20">
                   "
                 </div>
                 <div className="flex items-start gap-4 mt-4">
-                  <div className={`w-12 h-12 ${
-                    testimonial.type === 'light' ? 'bg-purple-300/20' : 'bg-purple-600/20'
-                  } rounded-full flex-shrink-0`} />
-                  <p className="text-gray-200 text-sm leading-relaxed relative">
+                  <div className="w-12 h-12 bg-[#64ffda]/10 rounded-full flex-shrink-0" />
+                  <p className="text-[#8892b0] text-sm leading-relaxed relative">
                     {testimonial.text}
                   </p>
                 </div>
@@ -113,23 +80,23 @@ const Services = () => {
           {/* Stats Section */}
           <motion.div 
             variants={fadeInUp}
-            className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-32"
+            className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8"
           >
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-2">10+</div>
-              <div className="text-gray-300 bg-purple-900/30 backdrop-blur-sm px-6 py-2 rounded-full">
+            <div className="text-center bg-[#112240] border border-[#8892b0]/10 rounded-lg p-6">
+              <div className="text-3xl font-bold text-[#64ffda] mb-2 font-mono">10+</div>
+              <div className="text-[#8892b0]">
                 Clients
               </div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-2">50+</div>
-              <div className="text-gray-300 bg-purple-900/30 backdrop-blur-sm px-6 py-2 rounded-full">
+            <div className="text-center bg-[#112240] border border-[#8892b0]/10 rounded-lg p-6">
+              <div className="text-3xl font-bold text-[#64ffda] mb-2 font-mono">50+</div>
+              <div className="text-[#8892b0]">
                 Designs
               </div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-2">2yrs+</div>
-              <div className="text-gray-300 bg-purple-900/30 backdrop-blur-sm px-6 py-2 rounded-full">
+            <div className="text-center bg-[#112240] border border-[#8892b0]/10 rounded-lg p-6">
+              <div className="text-3xl font-bold text-[#64ffda] mb-2 font-mono">2yrs+</div>
+              <div className="text-[#8892b0]">
                 Experience
               </div>
             </div>

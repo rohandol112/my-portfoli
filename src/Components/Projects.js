@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { fadeInUp, staggerContainer } from '../utils/animations';
 import { ArrowLeft, ArrowRight, ExternalLink, Github, X } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 const Projects = () => {
+  const { isDark } = useTheme();
   const [activeFilter, setActiveFilter] = useState('All');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -79,47 +81,21 @@ const Projects = () => {
       variants={staggerContainer}
       initial="initial"
       animate="animate"
-      className="relative min-h-screen bg-gray-900 overflow-hidden w-full"
+      className={`relative min-h-screen overflow-hidden w-full transition-colors duration-300 ${
+        isDark ? 'bg-[#0a0a0a]' : 'bg-white'
+      }`}
     >
-      {/* Background effects */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="absolute right-5 sm:right-10 lg:right-20 top-20 w-[200px] sm:w-[300px] lg:w-[400px] h-[200px] sm:h-[300px] lg:h-[400px] bg-purple-600/20 rounded-full blur-[80px] sm:blur-[120px] -z-10" 
-      />
-      
-      <div className="absolute inset-0 bg-black/60" />
-
       <div className="relative z-10 py-16 sm:py-20 lg:py-24">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <div className="px-6 sm:px-8 lg:px-12 max-w-6xl mx-auto w-full">
         {/* Header Section with GitHub Link */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 sm:mb-12 gap-4 sm:gap-6">
-          <motion.div variants={fadeInUp} className="space-y-2">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white">
-              Have A Look At
+          <motion.div variants={fadeInUp}>
+            <h2 className={`text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 ${
+              isDark ? 'text-[#ccd6f6]' : 'text-slate-900'
+            }`}>
+              <span className="text-[#64ffda] font-mono text-xl sm:text-2xl">03.</span> Projects
             </h2>
-            <div className="flex items-center gap-2 sm:gap-3">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-yellow-400">
-                My Projects
-              </h2>
-              <motion.svg 
-                initial={{ x: 0 }}
-                animate={{ x: [0, 10, 0] }}
-                transition={{ repeat: Infinity, duration: 2 }}
-                className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 xl:w-16 xl:h-16 text-yellow-400"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-              >
-                <path 
-                  d="M5 12h14M12 5l7 7-7 7" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                />
-              </motion.svg>
-            </div>
+            <div className="w-16 h-1 bg-[#64ffda] mt-4"></div>
           </motion.div>
           
           <motion.a
@@ -137,17 +113,17 @@ const Projects = () => {
         {/* Filter Buttons */}
         <motion.div 
           variants={fadeInUp}
-          className="flex justify-center mb-8 sm:mb-12"
+          className="flex justify-start mb-8 sm:mb-12"
         >
-          <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 bg-gray-800/50 backdrop-blur-sm p-1.5 sm:p-2 rounded-2xl">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
             {filters.map((filter) => (
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
-                className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl transition-all duration-300 text-xs sm:text-sm font-medium ${
+                className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-md transition-all duration-300 text-xs sm:text-sm font-mono ${
                   activeFilter === filter
-                    ? 'bg-yellow-400 text-gray-900'
-                    : 'text-gray-400 hover:text-white hover:bg-gray-700/50'
+                    ? 'bg-[#64ffda]/10 text-[#64ffda] border border-[#64ffda]'
+                    : 'text-[#8892b0] hover:text-[#64ffda] hover:bg-[#64ffda]/5'
                 }`}
               >
                 {filter}
@@ -166,27 +142,27 @@ const Projects = () => {
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                className="card group hover:scale-105 transition-all duration-300 overflow-hidden"
+                className="bg-[#112240] border border-[#8892b0]/10 rounded-lg p-4 sm:p-6 group hover:border-[#64ffda]/30 transition-all duration-300 overflow-hidden"
               >
-                <div className="relative mb-4 sm:mb-6 overflow-hidden rounded-xl">
+                <div className="relative mb-4 sm:mb-6 overflow-hidden rounded-lg">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-40 sm:h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                    className="w-full h-40 sm:h-48 object-cover transition-transform duration-300 group-hover:scale-105"
                     onError={(e) => {
                       // Use a more reliable placeholder service
                       const colors = {
-                        'AI/ML': '6366f1',
-                        'Blockchain': '8b5cf6',
-                        'Analytics': '06b6d4',
-                        'Mobile App': '10b981'
+                        'AI/ML': '64ffda',
+                        'Blockchain': '64ffda',
+                        'Analytics': '64ffda',
+                        'Mobile App': '64ffda'
                       };
-                      const color = colors[project.category] || '6366f1';
+                      const color = colors[project.category] || '64ffda';
                       e.target.src = `data:image/svg+xml;base64,${btoa(`
                         <svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
-                          <rect width="100%" height="100%" fill="#${color}"/>
+                          <rect width="100%" height="100%" fill="#112240"/>
                           <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" 
-                                fill="white" font-family="Arial" font-size="24" font-weight="bold">
+                                fill="#${color}" font-family="monospace" font-size="20" font-weight="bold">
                             ${project.title.split(' ')[0]}
                           </text>
                         </svg>
@@ -194,10 +170,10 @@ const Projects = () => {
                     }}
                   />
                   <div className="absolute top-2 sm:top-3 right-2 sm:right-3">
-                    <span className={`px-2 sm:px-3 py-1 rounded-full text-xs font-medium ${
-                      project.status === 'Live' ? 'bg-green-500/20 text-green-300' :
-                      project.status === 'Development' ? 'bg-yellow-500/20 text-yellow-300' :
-                      'bg-blue-500/20 text-blue-300'
+                    <span className={`px-2 sm:px-3 py-1 rounded-md text-xs font-mono ${
+                      project.status === 'Live' ? 'bg-[#64ffda]/10 text-[#64ffda] border border-[#64ffda]' :
+                      project.status === 'Development' ? 'bg-[#8892b0]/10 text-[#8892b0] border border-[#8892b0]' :
+                      'bg-[#64ffda]/10 text-[#64ffda] border border-[#64ffda]'
                     }`}>
                       {project.status}
                     </span>
@@ -206,10 +182,10 @@ const Projects = () => {
                 
                 <div className="space-y-3 sm:space-y-4">
                   <div>
-                    <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-yellow-400 transition-colors mb-2">
+                    <h3 className="text-lg sm:text-xl font-bold text-[#ccd6f6] group-hover:text-[#64ffda] transition-colors mb-2">
                       {project.title}
                     </h3>
-                    <p className="text-gray-400 text-sm sm:text-base leading-relaxed line-clamp-3">
+                    <p className="text-[#8892b0] text-sm sm:text-base leading-relaxed line-clamp-3">
                       {project.description}
                     </p>
                   </div>
@@ -218,26 +194,26 @@ const Projects = () => {
                     {project.techStack?.slice(0, 4).map((tech, techIndex) => (
                       <span
                         key={techIndex}
-                        className="px-2 py-1 bg-purple-900/30 text-purple-200 rounded-md text-xs font-medium"
+                        className="px-2 py-1 bg-[#64ffda]/10 text-[#64ffda] rounded-md text-xs font-mono"
                       >
                         {tech}
                       </span>
                     ))}
                     {project.techStack?.length > 4 && (
-                      <span className="px-2 py-1 bg-gray-700/50 text-gray-300 rounded-md text-xs">
+                      <span className="px-2 py-1 bg-[#8892b0]/10 text-[#8892b0] rounded-md text-xs font-mono">
                         +{project.techStack.length - 4} more
                       </span>
                     )}
                   </div>
                   
-                  <div className="flex justify-between items-center pt-3 border-t border-gray-700/50">
-                    <span className="text-yellow-400 text-xs sm:text-sm font-medium bg-yellow-400/10 px-2 sm:px-3 py-1 rounded-full">
+                  <div className="flex justify-between items-center pt-3 border-t border-[#8892b0]/10">
+                    <span className="text-[#64ffda] text-xs sm:text-sm font-mono">
                       {project.category}
                     </span>
                     <div className="flex gap-1 sm:gap-2">
                       <button
                         onClick={() => setSelectedProject(project)}
-                        className="text-gray-400 hover:text-yellow-400 transition-colors text-xs sm:text-sm font-medium flex items-center gap-1 px-2 sm:px-3 py-1 rounded-lg hover:bg-gray-700/50"
+                        className="text-[#8892b0] hover:text-[#64ffda] transition-colors text-xs sm:text-sm font-mono flex items-center gap-1 px-2 sm:px-3 py-1 rounded-md hover:bg-[#64ffda]/5"
                       >
                         Details
                       </button>
@@ -245,7 +221,7 @@ const Projects = () => {
                         href={project.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-400 hover:text-yellow-400 transition-colors text-xs sm:text-sm font-medium flex items-center gap-1 px-2 sm:px-3 py-1 rounded-lg hover:bg-gray-700/50"
+                        className="text-[#8892b0] hover:text-[#64ffda] transition-colors text-xs sm:text-sm font-mono flex items-center gap-1 px-2 sm:px-3 py-1 rounded-md hover:bg-[#64ffda]/5"
                       >
                         <Github className="w-3 h-3 sm:w-4 sm:h-4" />
                         Code
@@ -289,19 +265,19 @@ const Projects = () => {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-gray-800 rounded-2xl p-4 sm:p-6 lg:p-8 max-w-4xl w-full max-h-[95vh] overflow-y-auto"
+              className="bg-[#112240] rounded-lg p-4 sm:p-6 lg:p-8 max-w-4xl w-full max-h-[95vh] overflow-y-auto border border-[#8892b0]/20"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-start mb-4 sm:mb-6">
                 <div>
-                  <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-2">{selectedProject.title}</h2>
-                  <span className="text-yellow-400 bg-yellow-400/10 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">
+                  <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-[#ccd6f6] mb-2">{selectedProject.title}</h2>
+                  <span className="text-[#64ffda] bg-[#64ffda]/10 px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-mono border border-[#64ffda]">
                     {selectedProject.category}
                   </span>
                 </div>
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="p-2 text-gray-400 hover:text-white transition-colors"
+                  className="p-2 text-[#8892b0] hover:text-[#64ffda] transition-colors"
                 >
                   <X className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
@@ -312,21 +288,21 @@ const Projects = () => {
                   <img
                     src={selectedProject.image}
                     alt={selectedProject.title}
-                    className="w-full h-48 sm:h-56 lg:h-64 object-cover rounded-xl mb-4 sm:mb-6"
+                    className="w-full h-48 sm:h-56 lg:h-64 object-cover rounded-lg mb-4 sm:mb-6"
                     onError={(e) => {
                       // Use a more reliable placeholder service
                       const colors = {
-                        'AI/ML': '6366f1',
-                        'Blockchain': '8b5cf6',
-                        'Analytics': '06b6d4',
-                        'Mobile App': '10b981'
+                        'AI/ML': '64ffda',
+                        'Blockchain': '64ffda',
+                        'Analytics': '64ffda',
+                        'Mobile App': '64ffda'
                       };
-                      const color = colors[selectedProject.category] || '6366f1';
+                      const color = colors[selectedProject.category] || '64ffda';
                       e.target.src = `data:image/svg+xml;base64,${btoa(`
                         <svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
-                          <rect width="100%" height="100%" fill="#${color}"/>
+                          <rect width="100%" height="100%" fill="#112240"/>
                           <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" 
-                                fill="white" font-family="Arial" font-size="32" font-weight="bold">
+                                fill="#${color}" font-family="monospace" font-size="28" font-weight="bold">
                             ${selectedProject.title.split(' ')[0]}
                           </text>
                         </svg>
@@ -360,17 +336,17 @@ const Projects = () => {
 
                 <div className="space-y-4 sm:space-y-6">
                   <div>
-                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">Description</h3>
-                    <p className="text-gray-300 leading-relaxed text-sm sm:text-base">{selectedProject.description}</p>
+                    <h3 className="text-base sm:text-lg font-semibold text-[#ccd6f6] mb-2 sm:mb-3">Description</h3>
+                    <p className="text-[#8892b0] leading-relaxed text-sm sm:text-base">{selectedProject.description}</p>
                   </div>
 
                   <div>
-                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">Tech Stack</h3>
+                    <h3 className="text-base sm:text-lg font-semibold text-[#ccd6f6] mb-2 sm:mb-3">Tech Stack</h3>
                     <div className="flex flex-wrap gap-2">
                       {selectedProject.techStack.map((tech, index) => (
                         <span
                           key={index}
-                          className="px-2 sm:px-3 py-1 sm:py-2 bg-purple-900/30 text-purple-200 rounded-lg text-xs sm:text-sm"
+                          className="px-2 sm:px-3 py-1 sm:py-2 bg-[#64ffda]/10 text-[#64ffda] rounded-md text-xs sm:text-sm font-mono"
                         >
                           {tech}
                         </span>
@@ -379,11 +355,11 @@ const Projects = () => {
                   </div>
 
                   <div>
-                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">Key Features</h3>
+                    <h3 className="text-base sm:text-lg font-semibold text-[#ccd6f6] mb-2 sm:mb-3">Key Features</h3>
                     <ul className="space-y-2">
                       {selectedProject.features.map((feature, index) => (
-                        <li key={index} className="text-gray-300 flex items-start gap-2 sm:gap-3 text-sm sm:text-base">
-                          <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-yellow-400 rounded-full flex-shrink-0 mt-1.5 sm:mt-2" />
+                        <li key={index} className="text-[#8892b0] flex items-start gap-2 sm:gap-3 text-sm sm:text-base">
+                          <span className="text-[#64ffda] mt-1">▹</span>
                           {feature}
                         </li>
                       ))}
